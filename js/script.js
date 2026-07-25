@@ -66,49 +66,11 @@ document.querySelectorAll(".fade-in").forEach(el => {
 
 function changeImage(img){
 
-document.getElementById("mainProductImage").src = img.src;
+    document.getElementById("mainProductImage").src = img.src;
 
-document.querySelectorAll(".thumbnail-gallery img")
-.forEach(i=>i.classList.remove("active"));
+    document.querySelectorAll(".thumbnail-gallery img")
+    .forEach(i => i.classList.remove("active"));
 
-img.classList.add("active");
-
-}
-
-function loadProduct(id){
-
-const thumbs=document.querySelectorAll(".thumbnail-gallery img");
-
-thumbs.forEach((img,index)=>{
-
-img.src=products[id].images[index];
-
-img.classList.remove("active");
-
-});
-
-thumbs[0].classList.add("active");
-
-document.getElementById("mainProductImage").src=products[id].images[0];
-
-const title=document.getElementById("productTitle");
-
-if(title){
-
-title.innerHTML=products[id].title;
-
-}
-
-const hero=document.getElementById("top-product");
-
-if(hero){
-
-hero.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-}
+    img.classList.add("active");
 
 }
