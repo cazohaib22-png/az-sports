@@ -74,3 +74,47 @@ function changeImage(img){
     img.classList.add("active");
 
 }
+
+function loadProduct(id){
+
+const card=document.querySelector('.sample-card[data-id="'+id+'"]');
+
+if(!card) return;
+
+const title=card.dataset.title;
+const desc=card.dataset.desc;
+
+const imgs=[
+card.dataset.img1,
+card.dataset.img2,
+card.dataset.img3,
+card.dataset.img4
+];
+
+document.getElementById("productTitle").innerHTML=title;
+
+const description=document.getElementById("productDescription");
+
+if(description){
+description.innerHTML=desc;
+}
+
+document.getElementById("mainProductImage").src=imgs[0];
+
+const thumbs=document.querySelectorAll(".thumbnail-gallery img");
+
+thumbs.forEach((img,index)=>{
+
+img.src=imgs[index];
+
+img.classList.remove("active");
+
+});
+
+thumbs[0].classList.add("active");
+
+document.getElementById("top-product").scrollIntoView({
+behavior:"smooth"
+});
+
+}
