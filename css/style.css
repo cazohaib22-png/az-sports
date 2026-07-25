@@ -892,3 +892,76 @@ color:#fff !important;
 .btn-secondary:visited{
 color:#fff !important;
 }
+
+/* FOOTBALL CATEGORY PAGE */
+
+.page-hero{
+padding:90px 0;
+background:#f8f8f8;
+text-align:center;
+}
+
+.page-hero h1{
+font-size:48px;
+margin-bottom:20px;
+color:#111;
+}
+
+.page-hero p{
+max-width:850px;
+margin:auto;
+font-size:18px;
+line-height:1.9;
+}
+
+.football-categories{
+padding:90px 0;
+}
+
+.football-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:35px;
+}
+
+.football-card{
+background:#fff;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 12px 35px rgba(0,0,0,.08);
+transition:.35s;
+}
+
+.football-card:hover{
+transform:translateY(-8px);
+}
+
+.football-card img{
+width:100%;
+height:270px;
+object-fit:cover;
+}
+
+.football-content{
+padding:30px;
+}
+
+.football-content h3{
+margin-bottom:15px;
+font-size:28px;
+}
+
+.football-content p{
+margin-bottom:25px;
+line-height:1.8;
+}
+
+@media(max-width:992px){
+
+.football-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
