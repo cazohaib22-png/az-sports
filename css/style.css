@@ -581,7 +581,6 @@ PRODUCT GALLERY
 
 .product-gallery{
 align-self:start;
-}
 display:flex;
 flex-direction:column;
 gap:20px;
@@ -606,7 +605,15 @@ transition:.3s;
 
 display:flex;
 
+flex-wrap:wrap;
+
 gap:15px;
+
+max-width:580px;
+
+margin:0 auto;
+
+justify-content:center;
 
 }
 
@@ -632,11 +639,15 @@ transition:.3s;
 
 transform:translateY(-4px);
 
+box-shadow:0 8px 18px rgba(0,0,0,.15);
+
 }
 
 .thumbnail-gallery img.active{
 
 border:2px solid #e30613;
+
+box-shadow:0 0 0 3px rgba(227,6,19,.15);
 
 }
 
@@ -715,6 +726,14 @@ width:100%;
 height:260px;
 
 object-fit:cover;
+
+transition:.4s;
+
+}
+
+.sample-card:hover img{
+
+transform:scale(1.06);
 
 }
 
@@ -871,6 +890,13 @@ transform:translateY(-8px);
 width:100%;
 height:220px;
 object-fit:cover;
+transition:.4s;
+
+}
+
+.related-card:hover img{
+
+transform:scale(1.06);
 
 }
 
@@ -1105,6 +1131,106 @@ height:220px;
 
 font-size:26px;
 
+}
+
+}
+
+/* ===========================================================
+   PRODUCT PAGES - MOBILE RESPONSIVENESS
+=========================================================== */
+
+@media(max-width:992px){
+
+.product-grid{
+grid-template-columns:1fr;
+gap:35px;
+}
+
+.product-content h1{
+font-size:34px;
+}
+
+.product-content p{
+font-size:16px;
+margin-bottom:25px;
+}
+
+.main-image img{
+max-width:100%;
+}
+
+.thumbnail-gallery{
+max-width:100%;
+}
+
+}
+
+@media(max-width:576px){
+
+.product-hero{
+padding:25px 0 10px;
+}
+
+.product-tag{
+font-size:12px;
+padding:6px 14px;
+margin-bottom:14px;
+}
+
+.product-content h1{
+font-size:28px;
+}
+
+.thumbnail-gallery{
+gap:10px;
+}
+
+.thumbnail-gallery img{
+width:68px;
+height:68px;
+border-radius:10px;
+}
+
+.product-buttons{
+flex-direction:column;
+gap:12px;
+}
+
+.btn-primary,
+.btn-secondary{
+width:100%;
+text-align:center;
+padding:14px 20px;
+}
+
+.sample-designs{
+padding:50px 0;
+}
+
+.sample-designs h2{
+font-size:28px;
+}
+
+.sample-card img{
+height:220px;
+}
+
+.section{
+padding:40px 0;
+}
+
+.section-title h2{
+font-size:30px;
+}
+
+.specification-table th,
+.specification-table td{
+padding:14px;
+font-size:15px;
+}
+
+.related-card img{
+height:190px;
 }
 
 }
