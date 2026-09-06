@@ -40,77 +40,238 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 
 <link rel="canonical" href="https://strikonsports.pages.dev/pages/products/football/machine-stitched.html">
 
+<!-- ===========================================================
+     PAGE-SPECIFIC STYLE ADDITIONS (this update)
+     Scoped overrides/additions to match the homepage's header,
+     navigation and footer, plus product-page polish. Intended to
+     be folded into css/style.css later.
+=========================================================== -->
+<style>
+
+/* ---------- Compact header on product pages ---------- */
+.header .navbar{
+    min-height:70px;
+}
+.header .logo img{
+    height:50px;
+}
+
+/* ---------- Belt-and-braces contrast fixes ---------- */
+.header .nav-links > li > a{
+    color:#fff;
+}
+.header .quote-btn{
+    background:var(--primary);
+    color:#fff !important;
+}
+.dropdown-menu li a{
+    color:#fff;
+}
+.dropdown-menu li a:hover{
+    background:var(--primary);
+    color:#fff;
+}
+
+/* ---------- Tap-friendly dropdown on mobile ---------- */
+@media(max-width:992px){
+    .dropdown.open > .dropdown-menu{
+        display:block;
+    }
+}
+
+/* ---------- No horizontal scroll anywhere on this page ---------- */
+html, body{
+    overflow-x:hidden;
+    max-width:100%;
+}
+
+/* ---------- Feature / Why-Choose / Industries cards (were unstyled) ---------- */
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:30px;
+}
+.feature-card{
+    background:#fff;
+    padding:28px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+    border-top:3px solid transparent;
+    text-align:center;
+}
+.feature-card:hover{
+    transform:translateY(-6px);
+    border-top:3px solid var(--primary);
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+.feature-card i{
+    font-size:30px;
+    color:var(--primary);
+    margin-bottom:14px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:60px;
+    height:60px;
+    background:#fdecec;
+    border-radius:50%;
+}
+.feature-card h3{
+    margin-bottom:10px;
+    color:#111;
+    font-size:19px;
+}
+.feature-card p{
+    color:#666;
+    font-size:15px;
+    line-height:1.7;
+}
+
+/* ---------- Custom Manufacturing checklist, two columns on desktop ---------- */
+.feature-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:6px 24px;
+    margin-top:10px;
+}
+
+@media(max-width:992px){
+    .feature-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:576px){
+    .feature-grid{grid-template-columns:1fr;}
+    .feature-list{grid-template-columns:1fr;}
+}
+
+</style>
+
 </head>
 
 <body>
 
-<!-- Header -->
+<!-- ===========================
+TOP BAR
+=========================== -->
+
+<div class="top-bar">
+    <div class="container top-bar-content">
+
+        <div class="top-left">
+            <span><i class="fas fa-map-marker-alt"></i><span class="top-bar-text">Sialkot, Punjab, Pakistan</span></span>
+        </div>
+
+        <div class="top-right">
+            <a href="mailto:strikonsports@gmail.com"><i class="far fa-envelope"></i><span class="top-bar-text">strikonsports@gmail.com</span></a>
+
+            <a href="https://wa.me/923148733997" target="_blank">
+                <i class="fab fa-whatsapp"></i><span class="top-bar-text">+92 314 8733997</span>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===========================
+HEADER
+=========================== -->
 
 <header class="header">
 
-<div class="top-bar">
-
-<div class="container">
-
-<div class="top-left">
-<i class="fas fa-map-marker-alt"></i>
-Sialkot, Punjab, Pakistan
-</div>
-
-<div class="top-right">
-
-<a href="mailto:strikonsports@gmail.com">
-<i class="far fa-envelope"></i>
-strikonsports@gmail.com
-</a>
-
-<a href="https://wa.me/923148733997" target="_blank">
-<i class="fab fa-whatsapp"></i>
-+92 314 8733997
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="navbar">
-
-<div class="container">
+<nav class="navbar container">
 
 <a href="../../../index.html" class="logo">
+
 <img src="../../../images/hero/logo.png" alt="Strikon Sports">
+
 </a>
 
-<nav>
+<button class="menu-toggle">
 
-<ul>
+☰
+
+</button>
+
+<ul class="nav-links">
 
 <li><a href="../../../index.html">Home</a></li>
 
-<li><a href="#">Products</a></li>
+<li class="dropdown">
 
-<li><a href="#">Services</a></li>
+<a href="#">Products ▾</a>
 
-<li><a href="../../about.html">About</a></li>
+<ul class="dropdown-menu">
 
-<li>
-<a class="quote-btn"
-href="../../request-quote.html">
-Request Quote
-</a>
+<li><a href="index.html">Footballs</a></li>
+
+<li><a href="../goalkeeper-gloves.html">Goal Keeper Gloves</a></li>
+
+<li><a href="../sportswear.html">Sportswear</a></li>
+
+<li><a href="../basketball.html">Basketballs</a></li>
+
+<li><a href="../rugby.html">Rugby Balls</a></li>
+
+<li><a href="../futsal.html">Futsal Balls</a></li>
+
+</ul>
+
 </li>
 
-<li><a href="../../contact.html">Contact</a></li>
+<li class="dropdown">
+
+<a href="#">Services ▾</a>
+
+<ul class="dropdown-menu">
+
+<li><a href="../../services/oem-manufacturing.html">OEM Manufacturing</a></li>
+
+<li><a href="../../services/private-label.html">Private Label</a></li>
+
+<li><a href="../../services/factory-sourcing.html">Factory Sourcing</a></li>
+
+<li><a href="../../services/product-development.html">Product Development</a></li>
+
+<li><a href="../../services/quality-inspection.html">Quality Inspection</a></li>
+
+<li><a href="../../services/export-documentation.html">Export Documentation</a></li>
+
+<li><a href="../../services/worldwide-shipping.html">Worldwide Shipping</a></li>
+
+</ul>
+
+</li>
+
+<li>
+
+<a href="../../about.html">About</a>
+
+</li>
+
+<li>
+
+<a href="../../request-quote.html" class="quote-btn">
+
+Request Quote
+
+</a>
+
+</li>
+
+<li>
+
+<a href="../../contact.html">
+
+Contact
+
+</a>
+
+</li>
 
 </ul>
 
 </nav>
-
-</div>
-
-</div>
 
 </header>
 
@@ -181,7 +342,7 @@ Premium Football Collection
 Strikon Active (MS-01)
 </h1>
 
-<p id="productDescription">
+<p id="productShortDesc">
 Our Machine Stitched Footballs are manufactured using high-quality stitching machines to provide an economical and durable solution for schools, clubs, training academies, retailers and promotional markets. Complete customization is available including conal play, clubs, schools, sports brands and wholesale markets worldwide. Every specification—including panel design, materials, branding, colors and packaging—can be fully customized according to customer requirements.
 </p>
 
@@ -316,7 +477,7 @@ View Details →
 
             <h2>Product Overview</h2>
 
-            <p>
+            <p id="productDescription">
                 Machine Stitched Footballs offer excellent durability, affordability and consistent quality, making them ideal for large-volume orders, training sessions and institutional use. All products can be customized to your brand requirements.
             </p>
 
@@ -355,7 +516,7 @@ View Details →
 
                 <tr>
                     <th>Bladder</th>
-                    <td>Butyl </td>
+                    <td>Butyl</td>
                 </tr>
 
                 <tr>
@@ -370,7 +531,7 @@ View Details →
 
                 <tr>
                     <th>Weight</th>
-                    <td> Official Match Weight </td>
+                    <td>Official Match Weight</td>
                 </tr>
 
                 <tr>
@@ -798,28 +959,252 @@ WhatsApp Us
 
 
 
-<!-- Footer -->
+<!-- ===========================
+FOOTER
+=========================== -->
 
 <footer class="footer">
 
-<div class="container">
+<div class="container footer-grid">
+
+<div>
+
+<img src="../../../images/hero/logo.png"
+     alt="Strikon Sports Logo"
+     class="footer-logo">
 
 <p>
 
-© 2026 <strong>Strikon Sports</strong>. All Rights Reserved.
+Your trusted sourcing and export partner for premium sports goods from
+Sialkot, Pakistan.
+
+</p>
+
+<div class="social-links">
+
+<a href="https://wa.me/923148733997"
+target="_blank"
+aria-label="Strikon Sports on WhatsApp">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<a href="https://www.facebook.com/share/1HXfwzRb3B"
+target="_blank"
+aria-label="Strikon Sports on Facebook">
+
+<i class="fab fa-facebook"></i>
+
+</a>
+
+<a href="https://www.instagram.com/strikon_sports00/"
+target="_blank"
+aria-label="Strikon Sports on Instagram">
+
+<i class="fab fa-instagram"></i>
+
+</a>
+
+</div>
+
+</div>
+
+<div>
+
+<h3>Products</h3>
+
+<ul>
+
+<li><a href="index.html">Footballs</a></li>
+
+<li><a href="../goalkeeper-gloves.html">Goalkeeper Gloves</a></li>
+
+<li><a href="../sportswear.html">Sportswear</a></li>
+
+<li><a href="../basketball.html">Basketballs</a></li>
+
+<li><a href="../rugby.html">Rugby Balls</a></li>
+
+<li><a href="../futsal.html">Futsal Balls</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>Services</h3>
+
+<ul>
+
+<li><a href="../../services/oem-manufacturing.html">OEM Manufacturing</a></li>
+
+<li><a href="../../services/private-label.html">Private Label</a></li>
+
+<li><a href="../../services/factory-sourcing.html">Factory Sourcing</a></li>
+
+<li><a href="../../services/quality-inspection.html">Quality Inspection</a></li>
+
+<li><a href="../../services/worldwide-shipping.html">Worldwide Shipping</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>Contact</h3>
+
+<p>
+
+<i class="fas fa-map-marker-alt"></i>
+
+Sialkot, Punjab, Pakistan
 
 </p>
 
 <p>
 
-Sialkot, Punjab, Pakistan
+<i class="fas fa-envelope"></i>
+
+<a href="mailto:strikonsports@gmail.com">
+
+strikonsports@gmail.com
+
+</a>
+
+</p>
+
+<p>
+
+<i class="fab fa-whatsapp"></i>
+
+<a href="https://wa.me/923148733997" target="_blank">
+
++92 314 8733997
+
+</a>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<p>
+
+© 2026 Strikon Sports.
+All Rights Reserved.
 
 </p>
 
 </div>
 
 </footer>
-    
+
+<script>
+
+const products = {
+
+1:{
+title:"Strikon Active (MS-01)",
+desc:"Our Machine Stitched Footballs are manufactured by skilled craftsmen through trusted manufacturing partners in Sialkot, Pakistan...",
+images:[
+"../../../images/football/MS1-01.jpg",
+"../../../images/football/MS1-02.jpg",
+"../../../images/football/MS1-03.jpg",
+"../../../images/football/MS1-04.jpg"
+]
+},
+
+2:{
+title:"Strikon Sprint (MS-02)",
+desc:"Our Machine Stitched Footballs are manufactured using high-quality stitching machines to provide an economical and durable solution for schools, clubs, training academies, retailers and promotional markets. Complete customization is available including conal play, clubs, schools, sports brands and wholesale markets worldwide. Every specification—including panel design, materials, branding, colors and packaging—can be fully customized according to customer requirements.",
+images:[
+"../../../images/football/MS2-01.jpg",
+"../../../images/football/MS2-02.jpg",
+"../../../images/football/MS2-03.jpg",
+"../../../images/football/MS2-04.jpg"
+]
+},
+
+3:{
+title:"Strikon Force (MS-03)",
+desc:"Our Machine Stitched Footballs are manufactured using high-quality stitching machines to provide an economical and durable solution for schools, clubs, training academies, retailers and promotional markets. Complete customization is available including conal play, clubs, schools, sports brands and wholesale markets worldwide. Every specification—including panel design, materials, branding, colors and packaging—can be fully customized according to customer requirements.",
+images:[
+"../../../images/football/MS3-01.jpg",
+"../../../images/football/MS3-02.jpg",
+"../../../images/football/MS3-03.jpg",
+"../../../images/football/MS3-04.jpg"
+]
+}
+
+};
+
+function loadProduct(id){
+
+const thumbs=document.querySelectorAll(".thumbnail-gallery img");
+
+thumbs.forEach((img,index)=>{
+img.src=products[id].images[index];
+img.classList.remove("active");
+});
+
+thumbs[0].classList.add("active");
+
+document.getElementById("mainProductImage").src=products[id].images[0];
+
+const title=document.getElementById("productTitle");
+
+if(title){
+title.innerHTML=products[id].title;
+}
+
+const shortDesc=document.getElementById("productShortDesc");
+
+if(shortDesc){
+shortDesc.innerHTML=products[id].desc;
+}
+
+const hero=document.getElementById("top-product");
+
+if(hero){
+hero.scrollIntoView({
+behavior:"smooth"
+});
+}
+
+}
+
+</script>
+
+<!-- ===========================================================
+     Tap-to-open dropdowns on mobile/tablet (page-local, since
+     shared js/script.js is being left untouched this round).
+=========================================================== -->
+<script>
+
+document.querySelectorAll('.dropdown > a').forEach(function(trigger){
+    trigger.addEventListener('click', function(e){
+        if(window.matchMedia('(max-width:992px)').matches){
+            e.preventDefault();
+            const parentItem = this.parentElement;
+            const alreadyOpen = parentItem.classList.contains('open');
+            document.querySelectorAll('.dropdown.open').forEach(function(openItem){
+                openItem.classList.remove('open');
+            });
+            if(!alreadyOpen){
+                parentItem.classList.add('open');
+            }
+        }
+    });
+});
+
+</script>
+
 <script src="../../../js/script.js"></script>
 
 </body>
