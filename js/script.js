@@ -4,6 +4,19 @@
 // ===============================
 
 // ===============================
+// REDUCED MOTION PREFERENCE
+// ===============================
+
+const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+).matches;
+
+if (prefersReducedMotion) {
+    document.documentElement.classList.add("reduced-motion");
+}
+
+
+// ===============================
 // STICKY NAVBAR
 // ===============================
 
@@ -27,10 +40,32 @@ window.addEventListener("scroll", function () {
 const menuBtn = document.querySelector(".menu-toggle");
 const navMenu = document.querySelector(".nav-links");
 
+
+function closeMobileMenu() {
+
+    if (navMenu) {
+        navMenu.classList.remove("active");
+    }
+
+    document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+        dropdown.classList.remove("open");
+    });
+
+}
+
+
 if (menuBtn && navMenu) {
 
     menuBtn.addEventListener("click", function () {
-        navMenu.classList.toggle("active");
+
+        const isCurrentlyOpen = navMenu.classList.contains("active");
+
+        if (isCurrentlyOpen) {
+            closeMobileMenu();
+        } else {
+            navMenu.classList.add("active");
+        }
+
     });
 
     // Close menu when a normal link is clicked
@@ -43,11 +78,37 @@ if (menuBtn && navMenu) {
                 return;
             }
 
-            navMenu.classList.remove("active");
+            closeMobileMenu();
 
         });
 
     });
+
+    // Close the mobile menu when tapping/clicking outside of it
+    document.addEventListener("click", function (e) {
+
+        if (window.innerWidth > 768) return;
+
+        if (!navMenu.classList.contains("active")) return;
+
+        const clickedInsideMenu = navMenu.contains(e.target);
+        const clickedToggleBtn = menuBtn.contains(e.target);
+
+        if (!clickedInsideMenu && !clickedToggleBtn) {
+            closeMobileMenu();
+        }
+
+    });
+
+    // Close the mobile menu when pressing Escape
+    document.addEventListener("keydown", function (e) {
+
+        if (e.key === "Escape" && navMenu.classList.contains("active")) {
+            closeMobileMenu();
+        }
+
+    });
+
 }
 
 
@@ -65,8 +126,18 @@ document.querySelectorAll(".dropdown > a").forEach(function (dropdownLink) {
             e.preventDefault();
 
             const dropdown = this.parentElement;
+            const isCurrentlyOpen = dropdown.classList.contains("open");
 
-            dropdown.classList.toggle("open");
+            // Close any other open dropdowns first (accordion behaviour)
+            document.querySelectorAll(".dropdown").forEach(function (otherDropdown) {
+
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.remove("open");
+                }
+
+            });
+
+            dropdown.classList.toggle("open", !isCurrentlyOpen);
 
         }
 
@@ -97,7 +168,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
             e.preventDefault();
 
             target.scrollIntoView({
-                behavior: "smooth",
+                behavior: prefersReducedMotion ? "auto" : "smooth",
                 block: "start"
             });
 
@@ -112,29 +183,42 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
 // FADE-IN ANIMATION
 // ===============================
 
-const observer = new IntersectionObserver(function (entries) {
+const fadeElements = document.querySelectorAll(".fade-in");
 
-    entries.forEach(function (entry) {
+if (prefersReducedMotion) {
 
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
-
-            // Animate only once
-            observer.unobserve(entry.target);
-
-        }
-
+    // Reveal everything immediately, no scroll-triggered motion
+    fadeElements.forEach(function (element) {
+        element.classList.add("show");
     });
 
-}, {
-    threshold: 0.15
-});
+} else {
+
+    const observer = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("show");
+
+                // Animate only once
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+        threshold: 0.15
+    });
 
 
-document.querySelectorAll(".fade-in").forEach(function (element) {
-    observer.observe(element);
-});
+    fadeElements.forEach(function (element) {
+        observer.observe(element);
+    });
+
+}
 
 
 // ===============================
@@ -146,6 +230,110 @@ window.addEventListener("load", function () {
     document.body.classList.add("page-loaded");
 
 });
+
+
+// ===============================
+// ANIMATED STATS COUNTERS
+// ===============================
+
+function animateStatValue(el) {
+
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || "";
+
+    if (isNaN(target)) {
+        return;
+    }
+
+    // Respect reduced motion: jump straight to the final value
+    if (prefersReducedMotion) {
+        el.textContent = target + suffix;
+        return;
+    }
+
+    const duration = 1800;
+    const startTime = performance.now();
+
+    function step(currentTime) {
+
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease-out so the count settles smoothly instead of stopping abruptly
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.floor(eased * target);
+
+        el.textContent = currentValue + suffix;
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            el.textContent = target + suffix;
+        }
+
+    }
+
+    requestAnimationFrame(step);
+
+}
+
+
+function initStatsCounters() {
+
+    const statElements = document.querySelectorAll("[data-target]");
+
+    if (!statElements.length) {
+        return;
+    }
+
+    let hasAnimated = false;
+
+    function triggerAllStats() {
+
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        statElements.forEach(function (el) {
+            animateStatValue(el);
+        });
+
+    }
+
+    // Find the section housing the stats so the whole group
+    // animates together the first time it enters the viewport.
+    const statsSection =
+        document.querySelector(".stats-section") ||
+        document.getElementById("stats") ||
+        statElements[0].closest("section") ||
+        statElements[0].parentElement;
+
+    if (!statsSection) {
+        triggerAllStats();
+        return;
+    }
+
+    const statsObserver = new IntersectionObserver(function (entries, obs) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                triggerAllStats();
+                obs.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+        threshold: 0.3
+    });
+
+    statsObserver.observe(statsSection);
+
+}
+
+initStatsCounters();
 
 
 // ===============================
@@ -340,7 +528,7 @@ function loadProduct(id) {
     if (heroSection) {
 
         heroSection.scrollIntoView({
-            behavior: "smooth",
+            behavior: prefersReducedMotion ? "auto" : "smooth",
             block: "start"
         });
 
@@ -356,19 +544,7 @@ function loadProduct(id) {
 window.addEventListener("resize", function () {
 
     if (window.innerWidth > 768) {
-
-        if (navMenu) {
-            navMenu.classList.remove("active");
-        }
-
-        document
-            .querySelectorAll(".dropdown")
-            .forEach(function (dropdown) {
-
-                dropdown.classList.remove("open");
-
-            });
-
+        closeMobileMenu();
     }
 
 });
